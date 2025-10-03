@@ -87,7 +87,8 @@ public class backupDataInStorage
                     }
 
                     _logger.LogInformation($"Copying blob: {blob.Name}");
-                    await destBlob.StartCopyFromUriAsync(sourceBlob.Uri);
+                    using var stream = await sourceBlob.OpenReadAsync();
+                    await destBlob.UploadAsync(stream, overwrite: true);
                 }
             }
 
