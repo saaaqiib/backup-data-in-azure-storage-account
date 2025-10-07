@@ -25,6 +25,11 @@ public class backupDataInStorage
             _logger.LogWarning("The timer is past due!");
         }
 
+        if (myTimer.ScheduleStatus is not null)
+        {
+            _logger.LogInformation("Next timer schedule at: {nextSchedule}", myTimer.ScheduleStatus.Next);
+        }
+
         _logger.LogInformation("C# Timer trigger function executed at: {executionTime}", DateTime.Now);
 
         try
