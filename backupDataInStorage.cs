@@ -95,6 +95,18 @@ public class backupDataInStorage
                     using var stream = await sourceBlob.OpenReadAsync();
                     await destBlob.UploadAsync(stream, overwrite: true);
                 }
+
+                //This will remove blobs deleted on source from destination as well
+                await foreach (BlobItem destBlobItem in destContainer.GetBlobsAsync())
+                {
+                    var sourceBlob = sourceContainer.GetBlobClient(destBlobItem.Name);
+
+                    if (!await sourceBlob.ExistsAsync())
+                    {
+                        _logger.LogInformation($"Deleting blob missing in source: {destBlobItem.Name}");
+                        await destContainer.DeleteBlobIfExistsAsync(destBlobItem.Name);
+                    }
+                }
             }
 
             _logger.LogInformation("Sync completed successfully.");
