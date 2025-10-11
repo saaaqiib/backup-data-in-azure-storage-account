@@ -17,7 +17,7 @@ public class backupDataInStorage
     }
 
     [Function("syncStorageAccounts")]
-    public async Task Run([TimerTrigger("0 0 13,18 * * *")] TimerInfo myTimer)
+    public async Task Run([TimerTrigger("0 0 18,19 * * *")] TimerInfo myTimer)
     {
 
         if (myTimer.IsPastDue)
