@@ -17,17 +17,12 @@ public class backupDataInStorage
     }
 
     [Function("syncStorageAccounts")]
-    public async Task Run([TimerTrigger("0 0 18,19 * * *")] TimerInfo myTimer)
+    public async Task Run([TimerTrigger("0 0 12,17 * * *")] TimerInfo myTimer)
     {
 
         if (myTimer.IsPastDue)
         {
             _logger.LogWarning("The timer is past due!");
-        }
-
-        if (myTimer.ScheduleStatus is not null)
-        {
-            _logger.LogInformation("Next timer schedule at: {nextSchedule}", myTimer.ScheduleStatus.Next);
         }
 
         _logger.LogInformation("C# Timer trigger function executed at: {executionTime}", DateTime.Now);
